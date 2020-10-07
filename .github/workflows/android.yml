@@ -1,0 +1,27 @@
+
+#name of the worflow
+name: Android Workflow
+
+#events that can trigger the action
+on: [push, pull_request]
+
+#list of jobs
+jobs:
+  test:
+    #defines the base container to use
+    runs-on: macos-latest
+    #list of steps to run in the build
+    steps:
+    - name: checkout
+      uses: actions/checkout@v2
+
+    - name: add keys
+      env:
+        KEYS: ${{ secrets.KEYS }}
+      run: echo $KEYS > app/src/main/res/values/keys.xml
+
+    - name: run tests
+      uses: reactivecircus/android-emulator-runner@v2
+      with:
+        api-level: 29
+        script: ./gradlew connectedCheck
