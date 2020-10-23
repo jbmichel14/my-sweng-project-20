@@ -32,12 +32,23 @@ import com.squareup.picasso.Picasso;
 
 import java.io.IOException;
 
+import javax.inject.Inject;
+
+import dagger.hilt.android.AndroidEntryPoint;
+
+@AndroidEntryPoint
 public class WeatherActivity extends AppCompatActivity {
     private static final int PERMISSION_REQUEST_CODE = 1;
 
-    private LocationService mLocationService;
-    private WeatherService mWeatherService;
-    private GeocodingService mGeocodingService;
+    @Inject
+    LocationService mLocationService;
+
+    @Inject
+    WeatherService mWeatherService;
+
+    @Inject
+    GeocodingService mGeocodingService;
+
 
     private WeatherForecast mLatestForecast;
 
